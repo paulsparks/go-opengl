@@ -1,8 +1,10 @@
 package main
 
 import (
+	"log"
 	"runtime"
 
+	"github.com/go-gl/gl/v3.3-core/gl"
 	"github.com/go-gl/glfw/v3.3/glfw"
 )
 
@@ -14,7 +16,7 @@ func init() {
 func main() {
 	err := glfw.Init()
 	if err != nil {
-		panic(err)
+		log.Fatalln("failed to initialize glfw:", err)
 	}
 	defer glfw.Terminate()
 
@@ -28,5 +30,10 @@ func main() {
 	for !window.ShouldClose() {
 		window.SwapBuffers()
 		glfw.PollEvents()
+	}
+
+	err = gl.Init()
+	if err != nil {
+		panic(err)
 	}
 }
